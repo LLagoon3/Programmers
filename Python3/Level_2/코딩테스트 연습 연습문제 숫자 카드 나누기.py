@@ -18,6 +18,8 @@ def gcd(B, R):#B >= R
 
 def gcd_mul(arr):
     arr.sort(reverse = False)
+    if len(arr) == 1:
+        return arr[0]
     tmp2, tmp1 = arr.pop(), arr.pop()#tmp1 >= tmp2
     res = gcd(tmp1, tmp2)
     for i in arr:
@@ -34,6 +36,8 @@ def cmp(arr, num):
     return False
 
 def solution(arrayA, arrayB):
+    if arrayA == None or arrayB == None:
+        return 0
     tmp1, tmp2 = gcd_mul(arrayA[:]), gcd_mul(arrayB[:])
     if tmp1 == tmp2:
         return 0
@@ -53,4 +57,4 @@ def solution(arrayA, arrayB):
             return tmp2
 
 
-print(solution([14, 35, 119], [18, 30, 102]))
+print(solution([0], [0]))

@@ -1,10 +1,11 @@
 def solution(s, n):
     res = ""
     for a in s:
-       if ord(a) == 32:res += ' '
-       elif 65 <= ord(a) <= 90: res += chr(((ord(a) - 65) % 25) + n + 65)
-       elif 97 <= ord(a) <= 122: res += chr(((ord(a) - 97) % 25) + n + 97)
+        asc = ord(a)
+        if asc == 32: res += ' '
+        elif asc <= 90: res += chr(((asc - 65 + n) % 26) + 65)
+        elif asc >= 97: res += chr(((asc - 97 + n) % 26) + 97)
     return res
         
-print(solution("a B z", 2))
+print(solution("a B z", 26))
 # print(ord('Z')) #97 - 122 , 65 - 90

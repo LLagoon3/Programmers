@@ -33,11 +33,28 @@ def bfs(maps, pos):
                 q.append([x, y, p[2] + 1])
     return -1
          
+####################################################################################
+
+def bfs(maps):
+    mv = [[-1, 0], [1, 0], [0, -1], [0, 1]] #UDLW
+    from collections import deque
+    q = deque([[0, 0, 0]])
+    while q:
+        pos = q.popleft()
+        for d in mv:
+            x, y = pos[0] + d[0], pos[1] + d[1]
+            if x == len(maps) - 1 and y == len(maps[0]) - 1: return pos[2] + 2
+            elif 0 <= x < len(maps) and 0 <= y < len(maps[0]) and maps[x][y] != 0:
+                maps[x][y] = 0
+                q.append([x, y, pos[2] + 1])
+                print(x, y)
+    return -1
+            
 
 def solution(maps):
     pos = [0, 0]
     # answer = dfs(maps, pos, [pos])
-    answer = bfs(maps, pos)
+    answer = bfs(maps)
     return answer
 
 print(solution(input))

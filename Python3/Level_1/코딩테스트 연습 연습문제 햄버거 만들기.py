@@ -54,9 +54,57 @@ def solution(ingredient):
             else: index = []
         cnt += 1
         print(index, olist)
+        
+def solution(ingredient):
+    from collections import deque
+    igr, stk, flag, res = deque(ingredient), [], False, 0
+    while igr:
+        igrtmp = igr.popleft()
+        if flag and igrtmp == 1 and stk[-1] == 3:
+            if not igr: 
+                res += 1
+                break
+            for _ in range(0, 3): stk.pop()
+            for _ in range(0, len(stk)):
+                tmpflag = False
+                if not tmpflag and stk[-1] == 1: tmpflag = True
+                elif tmpflag and stk[-1] != 1: break
+                igr.appendleft(stk.pop())
+            flag, stk, res = False, [], res + 1
+            # print(stk, flag, igr)
+            continue
+        if flag and stk[-1] + 1 != igrtmp: flag = False
+        if not flag and igrtmp == 1: flag = True
+        stk.append(igrtmp)
+        # print(stk, flag, igr)
+    return res
+
+def solution(ingredient):
+    from collections import deque
+    igr, stk, flag, res = deque(ingredient), deque(), False, 0
+    igr.append(0)
+    while igr:
+        if len(stk) >= 4 and flag and stk[-1] == 1 and stk[-2] == 3 and stk[-3] == 2 and stk[-4] == 1:
+            for _ in range(0, 4): stk.pop()
+            while stk:
+                if stk[0] == 1: break
+                stk.popleft()
+            for i in range(0, len(stk)):
+                if flag and stk[i] != stk[i - 1] + 1: flag = False
+                if not flag and stk[i] == 1: flag = True
+            res = res + 1
+        stk.append(igr.popleft())
+        if stk[-1] != 1: flag = False
+        print(stk)
+        if flag and stk[-1] != stk[-2] + 1: flag = False
+        if not flag and stk[-1] == 1: flag = True
+    
+    return res
             
 
-print(solution([1, 1, 2, 3, 1, 2, 3, 1]))
+print(solution( [1, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1]))
 
+# 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1
+# 2, 3, 2, 3, 1, 2, 3, 1
         
     
